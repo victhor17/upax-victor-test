@@ -11,7 +11,7 @@ export const EmployeesContainer = styled.div`
 
 export const AddEmploye = styled.div`
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
   align-items: center;
 `
 

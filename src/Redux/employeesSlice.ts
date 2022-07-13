@@ -1,8 +1,9 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import type { RootState } from '../store';
+import { Employe } from '../Components/EmployeeItem/EmployeItem';
 
 interface employeesState {
-	list: Object[];
+	list: Employe[];
 }
 
 const initialState: employeesState = {
@@ -13,7 +14,7 @@ export const employeesSlice = createSlice({
 	name: 'employees',
 	initialState,
 	reducers: {
-		setList: (state: employeesState, action: PayloadAction<Object[]>) => {
+		setList: (state: employeesState, action: PayloadAction<Employe[]>) => {
 			state.list = action.payload;
 		},
 	},

@@ -15,9 +15,22 @@ import { selectEmployees } from '../../../Redux/employeesSlice';
 import { BsFillPersonPlusFill } from 'react-icons/bs';
 import AddEmployeeContainer from '../AddEmployee/AddEmployee';
 import { Employe } from '../../EmployeeItem/EmployeItem';
+import { TextField } from '@mui/material';
+
+const filterEmployees = (
+	filterValue: string,
+	array: Employe[]
+) => {
+	return array.filter((item: Employe) => {
+		return (
+			item.name.includes(filterValue) || item.last_name.includes(filterValue)
+		);
+	});
+};
+
+const list: Employe[] = [];
 
 const Employees = () => {
-
 	const [next, setNext] = useState('');
 	const { error } = useGetEmployees(next);
 	const employeesList = useAppSelector(selectEmployees);
@@ -26,18 +39,21 @@ const Employees = () => {
 
 	const [currentpage, setCurrentPage] = useState(1);
 	const [totalPages, setTotalPages] = useState(1);
-	const [currentList, setCurrentList] = useState([]);
+	const [currentList, setCurrentList] = useState(list);
+	const [filterText, setFilterText] = useState('');
 
 	const onChangePage = (event: any, value: number) => {
 		setCurrentPage(value);
 	};
 
-	useEffect(() => {
+	useEffect(() => {if (!filterText.length) {
+
 		setCurrentList((): any => {
 			if (currentpage === 1) return employeesList.slice(0, 10);
 			else return employeesList.slice((currentpage - 1) * 10, currentpage * 10);
 		});
-	}, [currentpage, employeesList]);
+	}
+	}, [currentpage, employeesList, filterText]);
 
 	useEffect(() => {
 		if (employeesList.length) {
@@ -52,12 +68,19 @@ const Employees = () => {
 	useEffect(() => {
 		setNext(String(hasAdded));
 		console.log('wii');
-		
 	}, [hasAdded]);
 
 	if (error) {
 		toast.error('No se pudo cargar los employees');
 	}
+
+	const handleSearch = (event: any) => {
+		console.log(event.target.value);
+		if (event.target.value) {
+			setCurrentList(filterEmployees(event.target.value, employeesList));
+		}
+		setFilterText(event.target.value);
+	};
 
 	return (
 		<EmployeesContainer>
@@ -67,6 +90,7 @@ const Employees = () => {
 				canShowModal={canShowModal}
 			/>
 			<AddEmploye>
+				<TextField onChange={handleSearch} />
 				<AddEmployeeLink
 					onClick={() => {
 						setCanShowModal(true);
