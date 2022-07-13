@@ -1,0 +1,29 @@
+.header-container {
+  min-height: 3rem;
+  display: flex;
+  flex-direction: row;
+  padding: 1rem;
+}
+
+.left {
+  justify-self: flex-start;
+  width: 50%;
+  display: flex;
+  align-items: center;
+}
+
+a:visited  {
+  text-decoration: none;
+  color: inherit;
+}
+
+a {
+  margin: 0.8rem;
+}
+
+.right {
+  width: 50%;
+  justify-content: flex-end;
+  display: flex;
+  align-items: center;
+}
