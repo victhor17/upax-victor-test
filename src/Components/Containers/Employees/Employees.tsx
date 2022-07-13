@@ -17,7 +17,9 @@ import AddEmployeeContainer from '../AddEmployee/AddEmployee';
 import { Employe } from '../../EmployeeItem/EmployeItem';
 
 const Employees = () => {
+
 	const [next, setNext] = useState('');
+	const { error } = useGetEmployees(next);
 	const employeesList = useAppSelector(selectEmployees);
 	const [canShowModal, setCanShowModal] = useState(false);
 	const [hasAdded, setHasAdded] = useState('');
@@ -28,14 +30,14 @@ const Employees = () => {
 
 	const onChangePage = (event: any, value: number) => {
 		setCurrentPage(value);
-	}
+	};
 
 	useEffect(() => {
 		setCurrentList((): any => {
-			if (currentpage === 1) return employeesList.slice(0, 10)
-			else return employeesList.slice((currentpage -1)*10, currentpage*10)
-		})
-	}, [currentpage, employeesList])
+			if (currentpage === 1) return employeesList.slice(0, 10);
+			else return employeesList.slice((currentpage - 1) * 10, currentpage * 10);
+		});
+	}, [currentpage, employeesList]);
 
 	useEffect(() => {
 		if (employeesList.length) {
@@ -48,12 +50,10 @@ const Employees = () => {
 	}, [employeesList]);
 
 	useEffect(() => {
-		if (hasAdded) {
-			setNext(String(hasAdded));
-		}
+		setNext(String(hasAdded));
+		console.log('wii');
+		
 	}, [hasAdded]);
-
-	const { error } = useGetEmployees(next);
 
 	if (error) {
 		toast.error('No se pudo cargar los employees');
@@ -87,7 +87,11 @@ const Employees = () => {
 				})}
 			</EmployeesList>
 			<PaginationContainer>
-				<Pagination count={totalPages} page={currentpage} onChange={onChangePage}/>
+				<Pagination
+					count={totalPages}
+					page={currentpage}
+					onChange={onChangePage}
+				/>
 			</PaginationContainer>
 		</EmployeesContainer>
 	);

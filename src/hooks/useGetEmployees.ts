@@ -10,11 +10,9 @@ const useGetEmployees = (pagination: String) => {
 
 	const fetchEmployees = async () => {
 		try {
-			if (!currentEmployes.length) {
 				const responseService = await getEmployees();
 				const employees = responseService.data.data.employees;
 				dispath(setList(employees));
-			}
 		} catch (err) {
 			setError(true);
 		}
