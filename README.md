@@ -13,5 +13,7 @@ En la parte de de las imágenes uso botones para guardar las imagenes cargadas y
 
 Para simular los ambientes uso archivos .env, en el que almaceno el dominio de los servicios a consumir, en un proyecto real sí que cambian esos dominios.
 
+En la mayor parte del proyecto usé paquetes npm para agilizar el desarrollo
+
 Espero sea de su agrado :)
 
